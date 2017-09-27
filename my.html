@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="fonts/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="css/center.css"/>
+		<link rel="stylesheet" type="text/css" href="fonts/demo.css"/>
+		<script src="js/mui.min.js"></script>
+	</head>
+	<body>
+		<!-- 缩放式侧滑（类手机QQ） -->
+		<!-- 侧滑导航根容器 -->
+		<div class="mui-off-canvas-wrap mui-draggable mui-scalable mui-slide-in">
+		  <!-- 菜单容器 -->
+		  <aside class="mui-off-canvas-left mui-transitioning" id="offCanvasSide">
+		    <div class="mui-scroll-wrapper">
+		      <div class="mui-scroll">
+		        <!-- 菜单具体展示内容 -->
+		       	<li style="font-size: 16px; color: white; text-align: center;margin-top: 30px;">欢迎光临BB购</li>
+		      </div>
+		    </div>
+		  </aside>
+		  <!-- 主页面容器 -->
+		  <div class="mui-inner-wrap mui-transitioning">
+		    <!-- 主页面标题 -->
+		    <header class="mui-bar mui-bar-nav">
+		      <a class="mui-icon iconfont  icon-gengduo1 mui-icon-bars mui-pull-left" href="#offCanvasSide"></a>
+		      <h1 class="mui-title">BB购</h1>
+		    </header>
+		    <nav class="mui-bar mui-bar-tab">
+			    <a class="mui-tab-item " href="index.html">
+			        <span class="mui-icon iconfont  icon-shouye"></span>
+			        <span class="mui-tab-label">首页</span>
+			    </a>
+			    <a class="mui-tab-item">
+			        <span class="mui-icon iconfont icon-leimupinleifenleileibie"></span>
+			        <span class="mui-tab-label">分类</span>
+			    </a>
+			    <a class="mui-tab-item">
+			        <span class="mui-icon iconfont icon-gouwuche1"></span>
+			        <span class="mui-tab-label">购物车</span>
+			    </a>
+			    <a class="mui-tab-item mui-active"  href="my.html">
+			        <span class="mui-icon iconfont icon-wode"></span>
+			        <span class="mui-tab-label">我的</span>
+			    </a>
+			</nav>
+			<form class="mui-input-group" style="">
+			    <div class="mui-input-row">
+			        <label>用户名</label>
+			    <input type="text" class="mui-input-clear" placeholder="请输入用户名">
+			    </div>
+			    <div class="mui-input-row">
+			        <label>密码</label>
+			        <input type="password" class="mui-input-password" placeholder="请输入密码">
+			    </div>
+			    <div class="mui-button-row">
+			        <button type="button" class="mui-btn mui-btn-primary" >确认</button>
+			        <button type="button" class="mui-btn mui-btn-danger" >取消</button>
+			    </div>
+			</form> 
+		    <div class="mui-off-canvas-backdrop"></div>
+		  </div>
+		</div>
+	<body>
+		<script type="text/javascript">
+			mui.init();
+			
+		</script>
+	</body>
+
+</html>

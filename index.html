@@ -1,0 +1,155 @@
+<!doctype html>
+<html>
+
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link href="css/mui.min.css" rel="stylesheet" />
+		<link rel="stylesheet" type="text/css" href="fonts/iconfont.css"/>
+		<link rel="stylesheet" type="text/css" href="css/center.css"/>
+		<link rel="stylesheet" type="text/css" href="fonts/demo.css"/>
+		<script src="js/mui.min.js"></script>
+		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+	</head>
+	<body style="">
+		<!-- 缩放式侧滑（类手机QQ） -->
+		<!-- 侧滑导航根容器 -->
+		<div class="mui-off-canvas-wrap mui-draggable mui-scalable mui-slide-in">
+		  <!-- 菜单容器 -->
+		  <aside class="mui-off-canvas-left mui-transitioning" id="offCanvasSide">
+		    <div class="mui-scroll-wrapper">
+		      <div class="mui-scroll">
+		        <!-- 菜单具体展示内容 -->
+		       	<li style="font-size: 16px; color: white; text-align: center;margin-top: 30px;">欢迎光临BB购</li>
+		      </div>
+		    </div>
+		  </aside>
+		  <!-- 主页面容器 -->
+		  <div class="mui-inner-wrap mui-transitioning">
+		    <!-- 主页面标题 -->
+		    <header class="mui-bar mui-bar-nav">
+		      <a class="mui-icon iconfont  icon-gengduo1 mui-icon-bars mui-pull-left" href="#offCanvasSide"></a>
+		      <h1 class="mui-title">BB购</h1>
+		    </header>
+		    <nav class="mui-bar mui-bar-tab">
+			    <a class="mui-tab-item mui-active">
+			        <span class="mui-icon iconfont  icon-shouye"></span>
+			        <span class="mui-tab-label">首页</span>
+			    </a>
+			    <a class="mui-tab-item">
+			        <span class="mui-icon iconfont icon-leimupinleifenleileibie"></span>
+			        <span class="mui-tab-label">分类</span>
+			    </a>
+			    <a class="mui-tab-item">
+			        <span class="mui-icon iconfont icon-gouwuche1"></span>
+			        <span class="mui-tab-label">购物车</span>
+			    </a>
+			    <a class="mui-tab-item" href="my.html">
+			        <span class="mui-icon iconfont icon-wode"></span>
+			        <span class="mui-tab-label">我的</span>
+			    </a>
+			</nav>
+				<div class="mui-content mui-scroll-wrapper ">
+			      <div class="mui-scroll ">
+			        <!-- 主界面具体展示内容 -->
+			        <div id="slider" class="mui-slider" >
+			          <div class="mui-slider-group mui-slider-loop">
+			            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
+			            <div class="mui-slider-item mui-slider-item-duplicate">
+			              <a href="#">
+			                <img src="">
+			              </a>
+			            </div>
+			            <!-- 第一张 -->
+			            <div class="mui-slider-item">
+			              <a href="#">
+			                <img src="img/log-1.jpg">
+			              </a>
+			            </div>
+			            <!-- 第二张 -->
+			            <div class="mui-slider-item">
+			              <a href="#">
+			                <img src="img/default.jpeg">
+			              </a>
+			            </div>
+			            <!-- 第三张 -->
+			            <div class="mui-slider-item">
+			              <a href="#">
+			                <img src="img/log-3.jpg">
+			              </a>
+			            </div>
+			            <!-- 第四张 -->
+			            <div class="mui-slider-item">
+			              <a href="#">
+			                <img src="img/log-2.jpg">
+			              </a>
+			            </div>
+			            <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
+			            <div class="mui-slider-item mui-slider-item-duplicate">
+			              <a href="#">
+			                <img src="http://placehold.it/400x300">
+			              </a>
+			            </div>
+			          </div>
+			          <div class="mui-slider-indicator">
+			            <div class="mui-indicator mui-active"></div>
+			            <div class="mui-indicator"></div>
+			            <div class="mui-indicator"></div>
+			            <div class="mui-indicator"></div>
+			          </div>
+			        </div>
+			        <ul class="mui-table-view" id="domId"></ul>
+			      </div>
+			    </div>
+		    <div class="mui-off-canvas-backdrop"></div>
+		  </div>
+		</div>
+	<body>
+		<script type="text/javascript">
+			mui.init();
+			var gallery = mui('.mui-slider');
+			gallery.slider({
+			  interval:2000//自动轮播周期，若为0则不自动播放，默认为0；
+			});
+			options = {
+				 scrollY: true, //是否竖向滚动
+				 scrollX: false, //是否横向滚动
+				 startX: 0, //初始化时滚动至x
+				 startY: 0, //初始化时滚动至y
+				 indicators: true, //是否显示滚动条
+				 deceleration:0.0006, //阻尼系数,系数越小滑动越灵敏
+				 bounce: true //是否启用回弹
+				}
+			mui.ajax('json/news.json',{
+				dataType:'json',//服务器返回json格式数据
+				success:function(data){
+					//服务器返回响应，根据响应结果，分析是否登录成功；
+					console.log(data);
+					creatDom(data);
+				},
+				error:function(xhr,type,errorThrown){
+					//异常处理；
+					console.log(type);
+				}
+			});
+			function creatDom(data){
+				$.each(data.result.data,function(id,obj){
+					var $html=$("<li class='mui-table-view-cell mui-media'>"+
+							      "  <a href="+obj.url+">"+
+							           " <img class='mui-media-object mui-pull-left' src="+obj.thumbnail_pic_s+">"+
+							           " <div class='mui-media-body'>"+
+							                obj.author_name+
+							               "<p class='mui-ellipsis'>"+obj.title+"</p>"+
+							           " </div>"+
+							        "</a>"+
+							    "</li>");
+					$(".mui-table-view").append($html);
+				});
+				
+			};
+			
+		</script>
+	</body>
+
+</html>
