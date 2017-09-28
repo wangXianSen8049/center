@@ -5,16 +5,20 @@
 		<meta charset="UTF-8">
 		<title>BB购</title>
 		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<link rel="icon" href="img/log.ico" type="image/x-icon">
+		<link rel="shortcut icon" href="img/log.ico type="image/x-icon">
 		<link href="css/mui.min.css" rel="stylesheet" />
 		<link rel="stylesheet" type="text/css" href="fonts/iconfont.css"/>
 		<link rel="stylesheet" type="text/css" href="css/center.css"/>
 		<link rel="stylesheet" type="text/css" href="fonts/demo.css"/>
 		<script src="js/mui.min.js"></script>
 		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=YqMfYl5N0eLfcTw4v6fVMGyAakUkyRs0"></script>
 	</head>
 	<body style="">
 		<!-- 缩放式侧滑（类手机QQ） -->
 		<!-- 侧滑导航根容器 -->
+		<div id="allmap"  style="display:none; "></div>
 		<div class="mui-off-canvas-wrap mui-draggable mui-scalable mui-slide-in">
 		  <!-- 菜单容器 -->
 		  <aside class="mui-off-canvas-left mui-transitioning" id="offCanvasSide">
@@ -35,6 +39,7 @@
 		    <header class="mui-bar mui-bar-nav">
 		      <a class="mui-icon iconfont  icon-gengduo1 mui-icon-bars mui-pull-left" href="#offCanvasSide"></a>
 		      <h1 class="mui-title">BB购</h1>
+		       <a class="mui-icon mui-pull-right" id="city" href="" style="font-size: 12px; line-height: 24px;"></a>
 		    </header>
 		    <nav class="mui-bar mui-bar-tab">
 			    <a class="mui-tab-item mui-active">
@@ -61,7 +66,7 @@
 			          <div class="mui-slider-group mui-slider-loop">
 			            <!-- 额外增加的一个节点(循环轮播：第一个节点是最后一张轮播) -->
 			            <div class="mui-slider-item mui-slider-item-duplicate">
-			              <a href=""mui-slider-item">
+			              <a href="">
 			                <img src="img/log-1.jpg">
 			              </a>
 			            </div>
@@ -92,7 +97,7 @@
 			            <!-- 额外增加的一个节点(循环轮播：最后一个节点是第一张轮播) -->
 			            <div class="mui-slider-item mui-slider-item-duplicate">
 			              <a href="#">
-			                <img src="http://placehold.it/400x300">
+			                <img src="img/log-1.jpg">
 			              </a>
 			            </div>
 			          </div>
@@ -153,12 +158,28 @@
 				});
 				
 			};
+			
+			//滚动条
 			(function($){
 			    $(".mui-scroll-wrapper").scroll({
 			        //bounce: false,//滚动条是否有弹力默认是true
 			        //indicators: false, //是否显示滚动条,默认是true
 			    }); 
 			})(mui);
+			// 定位
+				var map = new BMap.Map("allmap");
+				var point = new BMap.Point(116.331398,39.897445);
+				map.centerAndZoom(point,12);
+				function myFun(result){
+					var cityName = result.name;
+					map.setCenter(cityName);
+					map.enableScrollWheelZoom(true);
+					console.log("当前定位城市:"+cityName);
+					mui.alert("当前定位城市:"+cityName);
+					$("#city").text(cityName);
+				}
+				var myCity = new BMap.LocalCity();
+				myCity.get(myFun);
 		</script>
 	</body>
 
