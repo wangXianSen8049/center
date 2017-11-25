@@ -145,7 +145,7 @@
 				    	<img style="width:100%;"src="img/apple/IMG_0044.JPG"/>
 				    	<img style="width:100%;"src="img/apple/IMG_0045.JPG"/>
 				    	<img  style="width:100%;"src="img/apple/IMG_0046.JPG"/>
-		    	
+		    			<div id="allmap2" style="height: 300px; width: 100%;"></div>
 			        </ul>
 			      </div>
 			    </div>
@@ -227,8 +227,17 @@
 			    }); 
 			})(mui);
 			// 定位
+				var map2 = new BMap.Map("allmap2");
+				var point2 = new BMap.Point(110.514311,35.236302);
+				map2.centerAndZoom(point2, 15);
+				var marker2 = new BMap.Marker(point2);  // 创建标注
+				map2.addOverlay(marker2);               // 将标注添加到地图中
+				marker2.setAnimation(BMAP_ANIMATION_BOUNCE)
+			
+			
+			
 				var map = new BMap.Map("allmap");
-				var point = new BMap.Point(116.331398,39.897445);
+				var point = new BMap.Point(110.17307,3518476);
 				map.centerAndZoom(point,12);
 				function myFun(result){
 					var cityName = result.name;
