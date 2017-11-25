@@ -233,6 +233,11 @@
 				map2.centerAndZoom(point2, 5);
 				var marker2 = new BMap.Marker(point2);  // 创建标注
 				map2.addOverlay(marker2);               // 将标注添加到地图中
+				var label = new BMap.Label("发货地",{offset:new BMap.Size(20,-10)});
+				marker2.setLabel(label);
+				
+				
+				
 				marker2.setAnimation(BMAP_ANIMATION_BOUNCE);
 				var navigationControl = new BMap.NavigationControl({
 			    // 靠左上角位置
@@ -242,6 +247,7 @@
 				    // 启用显示定位
 				    enableGeolocation: true
 				 });
+				 
 				  map2.addControl(navigationControl);
 				  var geolocation = new BMap.Geolocation();
 					geolocation.getCurrentPosition(function(r){
@@ -249,19 +255,13 @@
 							var mk = new BMap.Marker(r.point);
 							map2.addOverlay(mk);
 							map2.panTo(r.point);
+							
 						}
 						else {
 							alert('failed'+this.getStatus());
 						}        
 					},{enableHighAccuracy: true})
-					map2.centerAndZoom(new BMap.Point(118.454, 32.955), 5);
-					map2.enableScrollWheelZoom();
-				  	var beijingPosition=new BMap.Point(110.514311,35.236302),
-					hangzhouPosition=new BMap.Point(120.129721,30.314429)
-					var points = [beijingPosition,hangzhouPosition];
-			
-					var curve = new BMapLib.CurveLine(points, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
-					map2.addOverlay(curve); //添加到地图中
+					
 
 						
 			
