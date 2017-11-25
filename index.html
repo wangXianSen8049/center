@@ -24,6 +24,7 @@
 		<script src="js/mui.min.js" ></script>
 		<script src="js/jquery-3.2.1.min.js" type="text/javascript" charset="utf-8"></script>
 		<script type="text/javascript" src="http://api.map.baidu.com/api?v=2.0&ak=YqMfYl5N0eLfcTw4v6fVMGyAakUkyRs0"></script>
+		<script type="text/javascript" src="http://api.map.baidu.com/library/CurveLine/1.5/src/CurveLine.min.js"></script>
 	</head>
 	<body style="position: relative;">
 		<!-- 缩放式侧滑（类手机QQ） -->
@@ -229,11 +230,40 @@
 			// 定位
 				var map2 = new BMap.Map("allmap2");
 				var point2 = new BMap.Point(110.514311,35.236302);
-				map2.centerAndZoom(point2, 15);
+				map2.centerAndZoom(point2, 5);
 				var marker2 = new BMap.Marker(point2);  // 创建标注
 				map2.addOverlay(marker2);               // 将标注添加到地图中
-				marker2.setAnimation(BMAP_ANIMATION_BOUNCE)
+				marker2.setAnimation(BMAP_ANIMATION_BOUNCE);
+				var navigationControl = new BMap.NavigationControl({
+			    // 靠左上角位置
+				    anchor: BMAP_ANCHOR_TOP_LEFT,
+				    // LARGE类型
+				    type: BMAP_NAVIGATION_CONTROL_LARGE,
+				    // 启用显示定位
+				    enableGeolocation: true
+				 });
+				  map2.addControl(navigationControl);
+				  var geolocation = new BMap.Geolocation();
+					geolocation.getCurrentPosition(function(r){
+						if(this.getStatus() == BMAP_STATUS_SUCCESS){
+							var mk = new BMap.Marker(r.point);
+							map2.addOverlay(mk);
+							map2.panTo(r.point);
+						}
+						else {
+							alert('failed'+this.getStatus());
+						}        
+					},{enableHighAccuracy: true})
+					map2.centerAndZoom(new BMap.Point(118.454, 32.955), 5);
+					map2.enableScrollWheelZoom();
+				  	var beijingPosition=new BMap.Point(110.514311,35.236302),
+					hangzhouPosition=new BMap.Point(120.129721,30.314429)
+					var points = [beijingPosition,hangzhouPosition];
 			
+					var curve = new BMapLib.CurveLine(points, {strokeColor:"blue", strokeWeight:3, strokeOpacity:0.5}); //创建弧线对象
+					map2.addOverlay(curve); //添加到地图中
+
+						
 			
 			
 				var map = new BMap.Map("allmap");
@@ -246,6 +276,7 @@
 					console.log("当前定位城市:"+cityName);
 					//mui.alert("当前定位城市:"+cityName);
 					$("#city").text(cityName);
+					
 				}
 				var myCity = new BMap.LocalCity();
 				myCity.get(myFun);
